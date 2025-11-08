@@ -1,55 +1,41 @@
-# V.E.C.T.O.R
-Rider Telemetry System
+# Rider Telemetry System - Mobile App
 
-A mobile telemetry app that records rider data using an ESP32 IMU sensor and GPS input to detect whether the user is walking, riding a scooty, or a bike.
-Built with React Native (Expo), it visualizes live stats, posture, and path while storing data locally.
+React Native (Expo) mobile app for real-time rider telemetry tracking.
 
-🚴 How It Works
+## Phase 1 Features (Current)
 
-IMU-based posture detection:
-Uses accelerometer and gyroscope readings to calculate pitch angle.
+✅ GPS tracking with distance calculation  
+✅ Sensor data integration (ESP32 WiFi)  
+✅ Real-time dashboard with metrics  
+✅ Live map with route tracking  
+✅ Start/Stop ride functionality  
+✅ Vehicle mode detection (Walking/Scooter/Motorcycle)  
+✅ Mock data fallback for testing  
 
-Walk → low speed & irregular motion
+## Setup
 
-Scooty → upright (pitch ~0–10°)
-
-Bike → forward lean (pitch ~30–45°)
-
-GPS integration:
-A second phone (MIT App / GPS2IP) sends latitude & longitude every second to a local Node.js API.
-The app fetches coordinates and displays position on a live map.
-
-💾 Data Handling
-
-Stores live sensor + GPS data every second
-
-Keeps 1000 recent entries (100 per page)
-
-Auto-exports to CSV after every 1000 samples
-
-CSV columns:
-
-timestamp,speed,accX,accY,accZ,gyroX,gyroY,gyroZ,pitch,battery,mode,lat,lon
-
-▶️ Quick Start
-git clone <repo>
-cd rider-telemetry-mobile
+1. Install dependencies:
+```bash
 npm install
-node gps_server.js      # if using 2nd phone GPS
-npm start               # run app via Expo Go
+```
 
+2. Start the app:
+```bash
+npm start
+```
 
-To build APK:
+3. Scan QR code with Expo Go app (iOS/Android)
 
-npm install -g eas-cli
-eas build -p android --profile preview
+## Configuration
 
-🌟 Key Features
+- **Sensor API**: Edit `SENSOR_API` in `src/hooks/useTelemetry.js`
+- Default: `http://192.168.4.1/data`
 
-Real-time detection of walk/scooty/bike
+## Phase 2 (Coming Soon)
 
-Live map tracking via local GPS feed
+- SQLite database storage
+- Data logs screen with pagination
+- Ride summary screen
+- CSV/JSON export
+- Auto-export at 1000 records
 
-Automatic CSV exports
-
-Works fully offline
